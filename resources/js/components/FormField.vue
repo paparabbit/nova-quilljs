@@ -26,9 +26,9 @@ import BlotFormatter from "quill-blot-formatter";
 // import { VideoBlot } from "../../quilljs/VideoBlot";
 import Tooltip from "quill/ui/tooltip";
 // import { CustomImageSpec } from "../../quilljs/CustomImageSpec";
-import "quill/dist/quill.core.css";
+// import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
+// import "quill/dist/quill.bubble.css";
 import htmlEditButton from "quill-html-edit-button";
 
 Quill.register({
