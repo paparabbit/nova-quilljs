@@ -12,7 +12,8 @@
     "devDependencies": {
         "cross-env": "^5.0.0",
         "laravel-mix": "^1.0",
-        "laravel-nova": "^1.0"
+        "laravel-nova": "^1.0",
+        "quill-html-edit-button": "^2.2.4"
     },
     "dependencies": {
         "quill-blot-formatter": "^1.0.5",
