@@ -22,20 +22,20 @@
 import { FormField, HandlesValidationErrors } from "laravel-nova";
 import { quillEditor, Quill } from "vue-quill-editor";
 import BlotFormatter from "quill-blot-formatter";
-import { ImageExtend, QuillWatch } from "quill-image-extend-module";
-import { VideoBlot } from "../../quilljs/VideoBlot";
+// import { ImageExtend, QuillWatch } from "quill-image-extend-module";
+// import { VideoBlot } from "../../quilljs/VideoBlot";
 import Tooltip from "quill/ui/tooltip";
-import { CustomImageSpec } from "../../quilljs/CustomImageSpec";
+// import { CustomImageSpec } from "../../quilljs/CustomImageSpec";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import htmlEditButton from "quill-html-edit-button";
 
 Quill.register({
-  "modules/ImageExtend": ImageExtend,
+  // "modules/ImageExtend": ImageExtend,
   "modules/blotFormatter": BlotFormatter,
   "ui/tooltip": Tooltip,
-  "formats/video": VideoBlot,
+  // "formats/video": VideoBlot,
   "modules/htmlEditButton": htmlEditButton,
 });
 
@@ -53,48 +53,48 @@ export default {
         placeholder: this.field.placeholder,
         modules: {
           htmlEditButton: {},
-          blotFormatter: {
-            specs: [CustomImageSpec],
-          },
-          ImageExtend: {
-            loading: true,
-            size: this.field.maxFileSize ? this.field.maxFileSize : 2,
-            name: "attachment",
-            action: `/nova-vendor/quilljs/${this.resourceName}/upload/${this.field.attribute}`,
-            response: (res) => {
-              return res.url;
-            },
-            headers: (xhr) => {
-              xhr.setRequestHeader(
-                "X-CSRF-TOKEN",
-                document.head.querySelector('meta[name="csrf-token"]').content
-              );
-            },
-            sizeError: () => {
-              this.$toasted.show(
-                `Image size exceeds ${
-                  this.field.maxFileSize ? this.field.maxFileSize : 2
-                }MB`,
-                { type: "error" }
-              );
-            },
-            change: (xhr, formData) => {
-              const draftId = this._uuid()
-              formData.append("draftId", draftId)
-              this.persisted.push(draftId)
-
-            },
-          },
+          // blotFormatter: {
+          //   specs: [CustomImageSpec],
+          // },
+          // ImageExtend: {
+          //   loading: true,
+          //   size: this.field.maxFileSize ? this.field.maxFileSize : 2,
+          //   name: "attachment",
+          //   action: `/nova-vendor/quilljs/${this.resourceName}/upload/${this.field.attribute}`,
+          //   response: (res) => {
+          //     return res.url;
+          //   },
+          //   headers: (xhr) => {
+          //     xhr.setRequestHeader(
+          //       "X-CSRF-TOKEN",
+          //       document.head.querySelector('meta[name="csrf-token"]').content
+          //     );
+          //   },
+          //   sizeError: () => {
+          //     this.$toasted.show(
+          //       `Image size exceeds ${
+          //         this.field.maxFileSize ? this.field.maxFileSize : 2
+          //       }MB`,
+          //       { type: "error" }
+          //     );
+          //   },
+          //   change: (xhr, formData) => {
+          //     const draftId = this._uuid()
+          //     formData.append("draftId", draftId)
+          //     this.persisted.push(draftId)
+          //
+          //   },
+          // },
 
           toolbar: {
             container: this.field.options,
             handlers: {
-              image() {
-                QuillWatch.emit(this.quill.id);
-              },
-              video(value) {
-                this.quill.theme.tooltip.edit("video");
-              },
+              // image() {
+              //   QuillWatch.emit(this.quill.id);
+              // },
+              // video(value) {
+              //   this.quill.theme.tooltip.edit("video");
+              // },
             },
           },
         },
@@ -186,8 +186,8 @@ export default {
   margin-top: 18px;
   font-size: 18px;
 }
-.ql-video {
-  width: 800px;
-  height: 450px;
-}
+/*.ql-video {*/
+/*  width: 800px;*/
+/*  height: 450px;*/
+/*}*/
 </style>
