@@ -26,12 +26,16 @@ import BlotFormatter from "quill-blot-formatter";
 import Tooltip from "quill/ui/tooltip";
 import "quill/dist/quill.snow.css";
 import htmlEditButton from "quill-html-edit-button";
+import SoftLineBreakBlot from "../soft_break";
+import Delta from 'quill-delta';
 
 Quill.register({
   "modules/blotFormatter": BlotFormatter,
   "ui/tooltip": Tooltip,
   "modules/htmlEditButton": htmlEditButton,
 });
+
+Quill.register(SoftLineBreakBlot);
 
 export default {
   mixins: [FormField, HandlesValidationErrors],
@@ -47,6 +51,20 @@ export default {
         placeholder: this.field.placeholder,
         modules: {
           htmlEditButton: {},
+          keyboard: {
+            bindings: {
+              "shift enter": {
+                key: 13,
+                shiftKey: true,
+                handler: this.shiftEnterHandler
+              }
+            }
+          },
+          clipboard: {
+            matchers: [
+              [ "BR", this.brMatcher ]
+            ],
+          },
 
           toolbar: {
             container: this.field.options,
@@ -89,6 +107,25 @@ export default {
       if (!formData.has('persisted')) {
         formData.append('persisted', JSON.stringify(this.persisted));
       }
+    },
+
+    /**
+     * Handle a shift enter
+     */
+    shiftEnterHandler(range)
+    {
+      this.editor.insertEmbed(range.index, 'softbreak', true, Quill.sources.USER);
+      this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
+      return false;
+    },
+
+    /**
+     * I think if a <br> is pasted into the field this will handle it
+     */
+    brMatcher(node, delta) {
+      let newDelta = new Delta();
+      newDelta.insert({softbreak: true});
+      return newDelta;
     },
 
     /**
